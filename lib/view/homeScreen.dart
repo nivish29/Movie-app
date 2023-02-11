@@ -223,41 +223,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container();
               }),
             ),
-            // FutureBuilder(
-            //     future: getData(),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.hasData) {
-            //         return ListView.builder(
-            //             itemCount: 5,
-            //             itemBuilder: (context, index) {
-            //               return SimpleHorizontalScreen(
-            //                 ImageUrl: populartvm[index]
-            //                     .results![index]
-            //                     .posterPath
-            //                     .toString(),
-            //               );
-            //             });
-            //       } else {
-            //         return CircularProgressIndicator();
-            //       }
-            //     })
           ],
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Transform.scale(
+          scale: 0.9,
+          child: FloatingActionButton.extended(
+              label: Text(
+                'Camera',
+                style: TextStyle(fontSize: 12),
+              ),
+              icon: Icon(Icons.search_rounded),
+              backgroundColor: AppColor.flushbarColor,
+              onPressed: () {
+                Navigator.pushNamed(context, RouteName.mlSearchScreen);
+              }),
         ),
       ),
     );
   }
-
-  // Future<List<PopularTvModel>> getData() async {
-  //   final response = await http.get(Uri.parse(
-  //       'https://api.themoviedb.org/3/tv/popular?api_key=74e83e30dbb2f3b125c2132c5cebb053'));
-  //   var data = jsonDecode(response.body.toString());
-  //   if (response.statusCode == 200) {
-  //     for (Map<String, dynamic> index in data) {
-  //       populartvm.add(PopularTvModel.fromJson(index));
-  //     }
-  //     return populartvm;
-  //   } else {
-  //     return populartvm;
-  //   }
-  // }
 }

@@ -1,11 +1,17 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/utils/Routes/Route_name.dart';
 import 'package:movie_app/utils/Routes/routes.dart';
+import 'package:camera/camera.dart';
 import 'package:movie_app/view_model/Provider/password_provider.dart';
 import 'package:movie_app/view_model/popular_tv_viewModel.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+List<CameraDescription>? cameras;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(const MyApp());
 }
 

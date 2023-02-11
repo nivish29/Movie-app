@@ -5,6 +5,7 @@ import 'package:movie_app/model/search_pass_data.dart';
 import 'package:movie_app/resources/component/horizontal_image.dart';
 import 'package:movie_app/model/pass_data.dart';
 import 'package:movie_app/utils/Routes/Route_name.dart';
+import 'package:movie_app/view/ML_SearchScreen.dart';
 import 'package:movie_app/view/actorInfoScreen.dart';
 import 'package:movie_app/view/entryScreen.dart';
 import 'package:movie_app/view/homeScreen.dart';
@@ -53,6 +54,15 @@ class Routes {
         // return MaterialPageRoute(builder: (context) => SignUpScreen());
         return PageTransition(
             child: SearchScreen(),
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
+            reverseDuration: Duration(milliseconds: 300));
+
+      case RouteName.mlSearchScreen:
+        // final search_args = settings.arguments as SearchPassData;
+        // return MaterialPageRoute(builder: (context) => SignUpScreen());
+        return PageTransition(
+            child: MLSearchScreen(),
             type: PageTransitionType.fade,
             duration: Duration(milliseconds: 300),
             reverseDuration: Duration(milliseconds: 300));

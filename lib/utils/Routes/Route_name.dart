@@ -10,4 +10,5 @@ class RouteName {
   static const String slidingScreen = 'sliding_Screen';
   static const String searchInfoScreen = 'searchInfo_Screen';
   static const String actorInfoScreen = 'actorInfo_Screen';
+  static const String mlSearchScreen = 'mlSearch_Screen';
 }
