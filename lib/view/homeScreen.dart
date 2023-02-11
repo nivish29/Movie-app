@@ -66,21 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
       extendBody: true,
-      // body: SizedBox(
-      // child: Column(
-      //   children: [
-      //     Expanded(
-      // child: ListView.builder(
-      //     shrinkWrap: true,
-      //     scrollDirection: Axis.horizontal,
-      //     itemCount: 5,
-      //     itemBuilder: (context, index) {
-      //       return Card();
-      //     }),
-      // )
-      //   ],
-      // ),
-      // child: HorizontalScreen(),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

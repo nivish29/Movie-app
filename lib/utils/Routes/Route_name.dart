@@ -7,4 +7,7 @@ class RouteName {
   static const String testScreen = 'Test_Screen';
   static const String infoScreen = 'info_Screen';
   static const String searchScreen = 'search_Screen';
+  static const String slidingScreen = 'sliding_Screen';
+  static const String searchInfoScreen = 'searchInfo_Screen';
+  static const String actorInfoScreen = 'actorInfo_Screen';
 }

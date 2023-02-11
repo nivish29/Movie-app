@@ -45,6 +45,9 @@ dependencies:
   shimmer: ^2.0.0
   http: ^0.13.5
   sentry_flutter: ^6.2.2
+  sliding_up_panel: ^2.0.0+1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
