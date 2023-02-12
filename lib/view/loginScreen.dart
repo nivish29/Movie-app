@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/auth.dart';
 import 'package:movie_app/resources/component/round_button.dart';
 import 'package:movie_app/resources/component/textField.dart';
+import 'package:movie_app/view/nav_page/main_page.dart';
 
 import '../resources/app_color.dart';
 import '../resources/component/blurred_bg.dart';
 import '../resources/component/password_textfield.dart';
 import '../utils/Routes/Route_name.dart';
 import '../utils/utils.dart';
+import 'homeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,10 +22,36 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? errorMessage = '';
+  bool isLogin = true;
   // ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth()
+          .signInWithEmailAndPassword(
+              email: _emailController.text.toString(),
+              password: _passwordController.text.toString())
+          .then((value) => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage())));
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+  //
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       onPress: () {
                         Utils.flushBarErrorMessage('Loging you in', context);
-                        Navigator.pushNamed(context, RouteName.MainPageScreen);
+                        signInWithEmailAndPassword();
+                        // Navigator.pushNamed(context, RouteName.MainPageScreen);
                         // Navigator.pushNamed(context, RouteName.horizontalImage);
                       },
                     ),
@@ -144,6 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, RouteName.signUp);
+                          // signIn();
                         },
                         child: Text(
                           'Sign Up',

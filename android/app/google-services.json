@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "476126910812",
+    "project_id": "vyaakhya-15e87",
+    "storage_bucket": "vyaakhya-15e87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476126910812:android:b0fd7f46a9798496610999",
+        "android_client_info": {
+          "package_name": "com.example.movie_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476126910812-jdt7l734fcehigqphg0j38qiudbc8pok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNhcj1piwRonY0qBWS0Sh_AXqau-Iltmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476126910812-jdt7l734fcehigqphg0j38qiudbc8pok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

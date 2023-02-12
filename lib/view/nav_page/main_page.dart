@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/resources/app_color.dart';
+import 'package:movie_app/resources/FinalShimmer.dart';
 import 'package:movie_app/view/find_friends.dart';
 import 'package:movie_app/view/homeScreen.dart';
 
@@ -13,6 +14,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   List Pages = [HomeScreen(), FindFriendScreen()];
+  // List Pages = [HomeScreen(), ShimmerScreen()];
 
   int curIdx = 0;
   void onTap(int index) {

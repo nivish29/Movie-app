@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/resources/app_color.dart';
@@ -9,6 +10,8 @@ import 'package:movie_app/resources/component/round_button.dart';
 
 import '../utils/Routes/Route_name.dart';
 import '../utils/utils.dart';
+import 'entryScreenService.dart';
+import 'homeScreen.dart';
 
 class EntryScreen extends StatefulWidget {
   const EntryScreen({Key? key}) : super(key: key);
@@ -18,6 +21,12 @@ class EntryScreen extends StatefulWidget {
 }
 
 class _EntryScreenState extends State<EntryScreen> {
+  entryScreenServices splashScreen = entryScreenServices();
+  void initState() {
+    // TODO: implement initState
+    splashScreen.isLogin(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -133,21 +142,8 @@ class _EntryScreenState extends State<EntryScreen> {
                   SizedBox(
                     height: screenHeight * 0.04,
                   ),
-                  RoundButton(
-                    strokeWidth: 2.5,
-                    strokeRadius: screenWidth * 0.7,
-                    text: 'Login',
-                    fontSize: 14,
-                    textColor: AppColor.primaryTextColor,
-                    fontWeight: FontWeight.bold,
-                    onPress: () {
-                      Navigator.pushNamed(context, RouteName.login);
-
-                      Utils.flushBarErrorMessage(' Login First', context);
-                    },
-                  ),
                   SizedBox(
-                    height: screenHeight * 0.1,
+                    height: screenHeight * 0.2,
                   ),
                 ],
               ),

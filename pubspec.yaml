@@ -47,6 +47,9 @@ dependencies:
   sentry_flutter: ^6.2.2
   sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.1.7
+  cloud_firestore: ^4.3.2
+  firebase_core: ^2.1.1
+  firebase_auth: ^4.2.6
 
   #for machine learning
   tflite: ^1.1.2

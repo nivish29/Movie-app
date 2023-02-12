@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/resources/component/round_button.dart';
 import 'package:movie_app/resources/component/textField.dart';
+import 'package:movie_app/view/loginScreen.dart';
 
+import '../auth.dart';
 import '../resources/app_color.dart';
 import '../resources/component/blurred_bg.dart';
 import '../resources/component/password_textfield.dart';
@@ -18,9 +22,52 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool loading = false;
+  String? errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _reEnterPasswordController = TextEditingController();
+
+  // Future<void> createUserWithEmailAndPassword() async {
+  //   try {
+  //     await Auth().createUserWithEmailAndPassword(
+  //         email: _emailController.text, password: _passwordController.text);
+  //   } on FirebaseAuthException catch (e) {
+  //     setState(() {
+  //       errorMessage = e.message;
+  //     });
+  //   }
+  //   print(errorMessage);
+  // }
+
+  void login() {
+    setState(() {
+      loading = true;
+    });
+    _auth
+        .createUserWithEmailAndPassword(
+            // email: emailController.text.toString(),
+            email: _emailController.text.toString(),
+            password: _passwordController.text.toString())
+        .then((value) async {
+      User? user = FirebaseAuth.instance.currentUser;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("User Registered"),
+      ));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      setState(() {
+        // CircularProgressIndicator();
+        loading = false;
+      });
+    }).onError((error, stackTrace) {
+      print('Error is: $error');
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +181,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onPress: () {
                         // Navigator.pushNamed(context, RouteName.signUp);
 
-                        Utils.flushBarErrorMessage('Signing Up', context);
+                        // Utils.flushBarErrorMessage('Signing Up', context);
+                        login();
                       },
                     ),
                   ),
