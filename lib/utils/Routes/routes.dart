@@ -2,21 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/model/actor_passData.dart';
 import 'package:movie_app/model/search_pass_data.dart';
+import 'package:movie_app/model/userModel.dart';
 import 'package:movie_app/resources/component/horizontal_image.dart';
 import 'package:movie_app/model/pass_data.dart';
 import 'package:movie_app/utils/Routes/Route_name.dart';
 import 'package:movie_app/view/ML_SearchScreen.dart';
 import 'package:movie_app/view/actorInfoScreen.dart';
+import 'package:movie_app/view/addUser.dart';
 import 'package:movie_app/view/entryScreen.dart';
 import 'package:movie_app/view/homeScreen.dart';
 import 'package:movie_app/view/infoScreen.dart';
 import 'package:movie_app/view/loginScreen.dart';
+import 'package:movie_app/view/nav_page/main_page.dart';
 import 'package:movie_app/view/searchInfoScreen.dart';
 import 'package:movie_app/view/searchScreen.dart';
 import 'package:movie_app/view/signUpScreen.dart';
 import 'package:movie_app/view/test_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../view/find_friends.dart';
 import '../../view/slidingFragmentScreen.dart';
 
 class Routes {
@@ -63,6 +67,33 @@ class Routes {
         // return MaterialPageRoute(builder: (context) => SignUpScreen());
         return PageTransition(
             child: MLSearchScreen(),
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
+            reverseDuration: Duration(milliseconds: 300));
+
+      case RouteName.findFriendScreen:
+        // final search_args = settings.arguments as user;
+        // return MaterialPageRoute(builder: (context) => SignUpScreen());
+        return PageTransition(
+            child: FindFriendScreen(),
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
+            reverseDuration: Duration(milliseconds: 300));
+
+      case RouteName.MainPageScreen:
+        // final search_args = settings.arguments as SearchPassData;
+        // return MaterialPageRoute(builder: (context) => SignUpScreen());
+        return PageTransition(
+            child: MainPage(),
+            type: PageTransitionType.fade,
+            duration: Duration(milliseconds: 300),
+            reverseDuration: Duration(milliseconds: 300));
+
+      case RouteName.addUserScreen:
+        // final search_args = settings.arguments as SearchPassData;
+        // return MaterialPageRoute(builder: (context) => SignUpScreen());
+        return PageTransition(
+            child: AddUser(),
             type: PageTransitionType.fade,
             duration: Duration(milliseconds: 300),
             reverseDuration: Duration(milliseconds: 300));

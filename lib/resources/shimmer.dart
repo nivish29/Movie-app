@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'app_color.dart';
 
 class HorizontalCardShimmer extends StatefulWidget {
   const HorizontalCardShimmer({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class _HorizontalCardShimmerState extends State<HorizontalCardShimmer> {
       baseColor: Colors.grey.withOpacity(0.7),
       highlightColor: Colors.white.withOpacity(0.7),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             child: Padding(
@@ -30,7 +34,7 @@ class _HorizontalCardShimmerState extends State<HorizontalCardShimmer> {
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
                         height: screenHeight * 0.25,
-                        width: screenWidth * 0.95,
+                        width: screenWidth * 1,
                         child: Image.asset('assets/img_1.png'),
                       ),
                     ),
@@ -41,66 +45,6 @@ class _HorizontalCardShimmerState extends State<HorizontalCardShimmer> {
           ),
           SizedBox(
             height: 14,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                width: 3,
-              ),
-              Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
-              ),
-              SizedBox(
-                width: 3,
-              ),
-            ],
           ),
         ],
       ),

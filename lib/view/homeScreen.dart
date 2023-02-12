@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/resources/component/horizontal_image.dart';
 import 'package:movie_app/model/pass_data.dart';
 import 'package:movie_app/resources/shimmer.dart';
+import 'package:movie_app/view_model/kids_popular_viewModel.dart';
 import 'package:movie_app/view_model/trending_movie_viewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   trendingMovieViewModel trendingMovieVM = trendingMovieViewModel();
   popularTvViewModel popularTvVM = popularTvViewModel();
+  kidsPopularViewModel kidsPopularVM = kidsPopularViewModel();
 
   @override
   bool _isLoading = true;
@@ -43,18 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     trendingMovieVM.fetchTrendingMovieApi();
     popularTvVM.FetchPopularTvList();
+    kidsPopularVM.FetchkidsPopularList();
     super.initState();
 
-    Timer(Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    // Timer(Duration(seconds: 2), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
+    // Future.delayed(Duration(seconds: 2), () {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
   }
 
   @override
@@ -67,163 +70,236 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColor.backgroundColor,
       extendBody: true,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(top: 45, left: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Top 5 Movies',
-                      style: GoogleFonts.dmSans(
-                        fontSize: 18,
-                        color: AppColor.primaryTextColor,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                  padding: const EdgeInsets.only(top: 45, left: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Top 5 Movies',
+                        style: GoogleFonts.dmSans(
+                          fontSize: 18,
+                          color: AppColor.primaryTextColor,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        // textAlign: TextAlign.start,
                       ),
-                      // textAlign: TextAlign.start,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: InkWell(
-                          splashColor: Colors.transparent.withOpacity(0),
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteName.searchScreen);
-                          },
-                          child: Container(
-                              height: 27,
-                              child: Image.asset(
-                                'lib/icons/find.png',
-                                color: AppColor.primaryTextColor,
-                              )),
-                        )),
-                  ],
-                )),
-            ChangeNotifierProvider<trendingMovieViewModel>(
-              create: (BuildContext context) => trendingMovieVM,
-              child: Consumer<trendingMovieViewModel>(
-                  builder: (context, value, _) {
-                switch (value.movieList.status) {
-                  case Status.LOADING:
-                    return HorizontalCardShimmer();
-                  case Status.ERROR:
-                    return Text(value.movieList.message.toString());
-                  case Status.COMPLETED:
-                    return Container(
-                      height: screenHeight * 0.31,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            return HorizontalScreen(
-                              ImageUrl: value
-                                  .movieList.data!.results![index].backdropPath
-                                  .toString(),
-                              onPress: () {
-                                Navigator.pushNamed(
-                                    context, RouteName.infoScreen,
-                                    arguments: PassData(
-                                      value.movieList.data!.results![index]
-                                          .posterPath
-                                          .toString(),
-                                      value
-                                          .movieList.data!.results![index].title
-                                          .toString(),
-                                      value.movieList.data!.results![index]
-                                          .releaseDate
-                                          .toString(),
-                                      value.movieList.data!.results![index]
-                                          .originalLanguage
-                                          .toString(),
-                                      value.movieList.data!.results![index]
-                                          .voteAverage!
-                                          .toDouble(),
-                                      value.movieList.data!.results![index]
-                                          .overview
-                                          .toString(),
-                                    ));
-                              },
-                            );
-                          }),
-                    );
-                }
-                return Container(
-                  width: 0,
-                  height: 0,
-                );
-              }),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, bottom: 24),
-              child: Text(
-                'Popular TV shows',
-                style: GoogleFonts.dmSans(
-                  fontSize: 18,
-                  color: AppColor.primaryTextColor,
-                  decoration: TextDecoration.none,
-                  fontWeight: FontWeight.bold,
-                ),
-                // textAlign: TextAlign.start,
-              ),
-            ),
-            ChangeNotifierProvider<popularTvViewModel>(
-              create: (BuildContext context) => popularTvVM,
-              child: Consumer<popularTvViewModel>(builder: (context, value, _) {
-                switch (value.TvList.status) {
-                  case Status.LOADING:
-                    return CircularProgressIndicator();
-                  case Status.ERROR:
-                    return Text(value.TvList.message.toString());
-                  case Status.COMPLETED:
-                    return Container(
-                      height: screenHeight * 0.31,
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 15,
-                          itemBuilder: (context, index) {
-                            // print(value.TvList.data?.results?.length);
-
-                            return SimpleHorizontalScreen(
-                                ImageUrl: value
-                                    .TvList.data!.results![index].posterPath
+                      Padding(
+                          padding: const EdgeInsets.only(right: 30),
+                          child: InkWell(
+                            splashColor: Colors.transparent.withOpacity(0),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteName.searchScreen);
+                            },
+                            child: Container(
+                                height: 27,
+                                child: Image.asset(
+                                  'lib/icons/find.png',
+                                  color: AppColor.primaryTextColor,
+                                )),
+                          )),
+                    ],
+                  )),
+              ChangeNotifierProvider<trendingMovieViewModel>(
+                create: (BuildContext context) => trendingMovieVM,
+                child: Consumer<trendingMovieViewModel>(
+                    builder: (context, value, _) {
+                  switch (value.movieList.status) {
+                    case Status.LOADING:
+                      return HorizontalCardShimmer();
+                    case Status.ERROR:
+                      return Text(value.movieList.message.toString());
+                    case Status.COMPLETED:
+                      return Container(
+                        height: screenHeight * 0.31,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return HorizontalScreen(
+                                ImageUrl: value.movieList.data!.results![index]
+                                    .backdropPath
                                     .toString(),
                                 onPress: () {
                                   Navigator.pushNamed(
                                       context, RouteName.infoScreen,
                                       arguments: PassData(
-                                        value.TvList.data!.results![index]
-                                            .backdropPath
+                                        value.movieList.data!.results![index]
+                                            .posterPath
                                             .toString(),
-                                        value.TvList.data!.results![index].name
+                                        value.movieList.data!.results![index]
+                                            .title
                                             .toString(),
-                                        value.TvList.data!.results![index]
-                                            .firstAirDate
+                                        value.movieList.data!.results![index]
+                                            .releaseDate
                                             .toString(),
-                                        value.TvList.data!.results![index]
+                                        value.movieList.data!.results![index]
                                             .originalLanguage
                                             .toString(),
-                                        value.TvList.data!.results![index]
+                                        value.movieList.data!.results![index]
                                             .voteAverage!
                                             .toDouble(),
-                                        value.TvList.data!.results![index]
+                                        value.movieList.data!.results![index]
                                             .overview
                                             .toString(),
                                       ));
-                                });
+                                },
+                              );
+                            }),
+                      );
+                  }
+                  return Container(
+                    width: 0,
+                    height: 0,
+                  );
+                }),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30, bottom: 24),
+                child: Text(
+                  'Popular TV shows',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 18,
+                    color: AppColor.primaryTextColor,
+                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  // textAlign: TextAlign.start,
+                ),
+              ),
+              ChangeNotifierProvider<popularTvViewModel>(
+                create: (BuildContext context) => popularTvVM,
+                child:
+                    Consumer<popularTvViewModel>(builder: (context, value, _) {
+                  switch (value.TvList.status) {
+                    case Status.LOADING:
+                      return CircularProgressIndicator();
+                    case Status.ERROR:
+                      return Text(value.TvList.message.toString());
+                    case Status.COMPLETED:
+                      return Container(
+                        height: screenHeight * 0.31,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 15,
+                            itemBuilder: (context, index) {
+                              // print(value.TvList.data?.results?.length);
 
-                            return Container();
-                          }),
-                    );
-                }
-                return Container();
-              }),
-            ),
-          ],
+                              return SimpleHorizontalScreen(
+                                  ImageUrl: value
+                                      .TvList.data!.results![index].posterPath
+                                      .toString(),
+                                  onPress: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.infoScreen,
+                                        arguments: PassData(
+                                          value.TvList.data!.results![index]
+                                              .backdropPath
+                                              .toString(),
+                                          value
+                                              .TvList.data!.results![index].name
+                                              .toString(),
+                                          value.TvList.data!.results![index]
+                                              .firstAirDate
+                                              .toString(),
+                                          value.TvList.data!.results![index]
+                                              .originalLanguage
+                                              .toString(),
+                                          value.TvList.data!.results![index]
+                                              .voteAverage!
+                                              .toDouble(),
+                                          value.TvList.data!.results![index]
+                                              .overview
+                                              .toString(),
+                                        ));
+                                  });
+
+                              return Container();
+                            }),
+                      );
+                  }
+                  return Container();
+                }),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30, bottom: 24),
+                child: Text(
+                  'Popular Among Kids',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 18,
+                    color: AppColor.primaryTextColor,
+                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  // textAlign: TextAlign.start,
+                ),
+              ),
+              ChangeNotifierProvider<kidsPopularViewModel>(
+                create: (BuildContext context) => kidsPopularVM,
+                child: Consumer<kidsPopularViewModel>(
+                    builder: (context, value, _) {
+                  switch (value.kidsPopularList.status) {
+                    case Status.LOADING:
+                      return CircularProgressIndicator();
+                    case Status.ERROR:
+                      return Text(value.kidsPopularList.message.toString());
+                    case Status.COMPLETED:
+                      return Container(
+                        height: screenHeight * 0.31,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 15,
+                            itemBuilder: (context, index) {
+                              // print(value.TvList.data?.results?.length);
+
+                              return SimpleHorizontalScreen(
+                                  ImageUrl: value.kidsPopularList.data!
+                                      .results![index].posterPath
+                                      .toString(),
+                                  onPress: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.infoScreen,
+                                        arguments: PassData(
+                                          value.kidsPopularList.data!
+                                              .results![index].backdropPath
+                                              .toString(),
+                                          value.kidsPopularList.data!
+                                              .results![index].title
+                                              .toString(),
+                                          value.kidsPopularList.data!
+                                              .results![index].releaseDate
+                                              .toString(),
+                                          value.kidsPopularList.data!
+                                              .results![index].originalLanguage
+                                              .toString(),
+                                          value.kidsPopularList.data!
+                                              .results![index].voteAverage!
+                                              .toDouble(),
+                                          value.kidsPopularList.data!
+                                              .results![index].overview
+                                              .toString(),
+                                        ));
+                                  });
+
+                              return Container();
+                            }),
+                      );
+                  }
+                  return Container();
+                }),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: Padding(

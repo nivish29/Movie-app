@@ -11,4 +11,7 @@ class RouteName {
   static const String searchInfoScreen = 'searchInfo_Screen';
   static const String actorInfoScreen = 'actorInfo_Screen';
   static const String mlSearchScreen = 'mlSearch_Screen';
+  static const String MainPageScreen = 'MainPage_Screen';
+  static const String addUserScreen = 'addUser_Screen';
+  static const String findFriendScreen = 'findFriend_Screen';
 }

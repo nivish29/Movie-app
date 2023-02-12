@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       onPress: () {
                         Utils.flushBarErrorMessage('Loging you in', context);
-                        Navigator.pushNamed(context, RouteName.home);
+                        Navigator.pushNamed(context, RouteName.MainPageScreen);
                         // Navigator.pushNamed(context, RouteName.horizontalImage);
                       },
                     ),

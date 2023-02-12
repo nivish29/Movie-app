@@ -69,7 +69,7 @@ class _ChangingCustomTextFieldState extends State<ChangingCustomTextField> {
                     fontSize: 16,
                     fontWeight: FontWeight.normal),
                 prefixIcon: Icon(
-                  Icons.alternate_email,
+                  Icons.account_circle_rounded,
                   color: AppColor.primaryTextColor,
                 ),
               ),
