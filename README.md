@@ -1,16 +1,5 @@
-# movie_app
+## Vyaakhya
 
-A new Flutter project.
+_Vyaakhya_ is a movie app where you can get the details of any movie or webseries.Apart from this service, this app also provides you with the feature where you can search any actor or actress by just using your camera with the help of machine learning model which is under development and requires a lot of data in order to get a precise prediction. This machine learning model was created with the help of _google's teachable machine and tensorflow lite_.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+_Vyaakhya_ is no doubt a best place to make friends by just navigating to the explore page where you will get the list all the active users with there name, phone number and discord id so that anyone can make friends and watch there favourite movie along with. For fulfilling this feature, I made a restful api with the help of _django rest framework_ which is not yet hosted anywhere and can only be runned with local host till data.
